@@ -1,0 +1,4 @@
+version: "Apple Swift version 1.2 (swiftlang-602.0.53.1 clang-602.0.53)"
+options: "7d21bf0f50ef5917e15cccde6cb55df2"
+inputs: 
+- "/Users/minami/cojt/TrembleWristband/TrembleWristbandTests/TrembleWristbandTests.swift"
