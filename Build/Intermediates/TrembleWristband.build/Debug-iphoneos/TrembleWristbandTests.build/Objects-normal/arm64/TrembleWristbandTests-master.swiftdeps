@@ -1,0 +1,5 @@
+version: "Apple Swift version 2.1 (swiftlang-700.1.101.6 clang-700.1.76)"
+options: "eef61e734a7844c87eeb709dcf305e86"
+build_time: [500711361, 349864000]
+inputs:
+  "/Users/minami/cojt/TrembleWristband/TrembleWristbandTests/TrembleWristbandTests.swift": [499925687, 0]
