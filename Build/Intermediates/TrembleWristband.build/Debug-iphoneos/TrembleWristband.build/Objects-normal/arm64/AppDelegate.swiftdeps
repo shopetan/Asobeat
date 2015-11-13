@@ -7,22 +7,22 @@ provides-member:
 - ["C16TrembleWristband11AppDelegate", ""]
 provides-dynamic-lookup:
 - "applicationWillEnterForeground"
+- "application"
+- "window"
+- "applicationWillTerminate"
 - "applicationWillResignActive"
 - "applicationDidEnterBackground"
-- "applicationWillTerminate"
-- "window"
 - "applicationDidBecomeActive"
-- "application"
 depends-top-level:
-- "UIResponder"
-- "UIApplication"
-- "AnyObject"
-- "NSObject"
-- "UIApplicationDelegate"
-- "UIWindow"
-- "AppDelegate"
 - !private "BooleanLiteralType"
+- "UIResponder"
 - "Bool"
+- "UIApplicationDelegate"
+- "AnyObject"
+- "AppDelegate"
+- "NSObject"
+- "UIApplication"
+- "UIWindow"
 depends-member:
 - ["PSs9AnyObject", "application"]
 - ["PSs9AnyObject", "applicationDidBecomeActive"]

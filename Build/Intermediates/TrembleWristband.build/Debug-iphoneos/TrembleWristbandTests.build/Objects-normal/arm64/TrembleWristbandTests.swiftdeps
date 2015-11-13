@@ -11,11 +11,11 @@ provides-dynamic-lookup:
 - "tearDown"
 - "setUp"
 depends-top-level:
-- !private "BooleanLiteralType"
-- "TrembleWristbandTests"
-- "XCTestCase"
 - !private "StringLiteralType"
+- "TrembleWristbandTests"
+- !private "BooleanLiteralType"
 - !private "XCTAssert"
+- "XCTestCase"
 depends-member:
 - !private ["PSs9AnyObject", "XCTAssert"]
 - ["PSs9AnyObject", "init"]

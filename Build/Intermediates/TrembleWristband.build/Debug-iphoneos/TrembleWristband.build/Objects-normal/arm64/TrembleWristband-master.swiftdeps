@@ -1,6 +1,6 @@
 version: "Apple Swift version 2.1 (swiftlang-700.1.101.6 clang-700.1.76)"
-options: "696f29630a5b8aca42d24dc7312bfb87"
-build_time: [500715432, 588302000]
+options: "06c384be1aeaf8275a5773c884bd6705"
+build_time: [500715862, 270651000]
 inputs:
-  "/Users/minami/cojt/TrembleWristband/TrembleWristband/AppDelegate.swift": [499925687, 0]
-  "/Users/minami/cojt/TrembleWristband/TrembleWristband/ViewController.swift": [500715432, 0]
+  "/Users/minami/cojt/autumnCOJT/TrembleWristband/AppDelegate.swift": [499925687, 0]
+  "/Users/minami/cojt/autumnCOJT/TrembleWristband/ViewController.swift": [500715789, 0]
