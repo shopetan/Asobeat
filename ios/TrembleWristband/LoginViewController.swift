@@ -18,8 +18,12 @@ class LoginViewController: UIViewController {
                 let alert = UIAlertController(title: "Logged In",
                                             message: "User \(unwrappedSession.userName) has logged in",
                                     preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction!) -> Void in
+                    self.performSegueWithIdentifier("toGameStartVC", sender: self)
+                }))
                 self.presentViewController(alert, animated: true, completion: nil)
+                let userDefault = NSUserDefaults.standardUserDefaults()
+                userDefault.setValue(unwrappedSession.userName, forKey: "userName")
             } else {
                 NSLog("Login error: %@", error!.localizedDescription);
             }

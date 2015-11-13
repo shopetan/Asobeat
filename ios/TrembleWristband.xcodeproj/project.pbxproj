@@ -12,6 +12,9 @@
 		E90386C91BF5CEFB00AE4BD3 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E90386C51BF5CEFB00AE4BD3 /* TwitterKitResources.bundle */; };
 		E90386CA1BF5CEFB00AE4BD3 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90386C61BF5CEFB00AE4BD3 /* TwitterCore.framework */; };
 		E90386CD1BF5CF9C00AE4BD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386CC1BF5CF9C00AE4BD3 /* LoginViewController.swift */; };
+		E90386D11BF5D19400AE4BD3 /* GameStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D01BF5D19400AE4BD3 /* GameStartViewController.swift */; };
+		E90386D51BF5D55500AE4BD3 /* JointRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D41BF5D55400AE4BD3 /* JointRoomViewController.swift */; };
+		E90386D71BF5D56D00AE4BD3 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90386D61BF5D56D00AE4BD3 /* CreateRoomViewController.swift */; };
 		E9E06DF31BE9BDB7006E99D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06DF21BE9BDB7006E99D3 /* AppDelegate.swift */; };
 		E9E06DF51BE9BDB7006E99D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06DF41BE9BDB7006E99D3 /* ViewController.swift */; };
 		E9E06DF81BE9BDB7006E99D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E06DF61BE9BDB7006E99D3 /* Main.storyboard */; };
@@ -36,6 +39,9 @@
 		E90386C51BF5CEFB00AE4BD3 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		E90386C61BF5CEFB00AE4BD3 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		E90386CC1BF5CF9C00AE4BD3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E90386D01BF5D19400AE4BD3 /* GameStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStartViewController.swift; sourceTree = "<group>"; };
+		E90386D41BF5D55400AE4BD3 /* JointRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JointRoomViewController.swift; sourceTree = "<group>"; };
+		E90386D61BF5D56D00AE4BD3 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateRoomViewController.swift; path = ../CreateRoomViewController.swift; sourceTree = "<group>"; };
 		E9E06DED1BE9BDB7006E99D3 /* TrembleWristband.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrembleWristband.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E06DF11BE9BDB7006E99D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9E06DF21BE9BDB7006E99D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 				E9E06DF21BE9BDB7006E99D3 /* AppDelegate.swift */,
 				E9E06DF41BE9BDB7006E99D3 /* ViewController.swift */,
 				E90386CC1BF5CF9C00AE4BD3 /* LoginViewController.swift */,
+				E90386D01BF5D19400AE4BD3 /* GameStartViewController.swift */,
+				E90386D61BF5D56D00AE4BD3 /* CreateRoomViewController.swift */,
+				E90386D41BF5D55400AE4BD3 /* JointRoomViewController.swift */,
 				E9E06DF61BE9BDB7006E99D3 /* Main.storyboard */,
 				E9E06DF91BE9BDB7006E99D3 /* Images.xcassets */,
 				E9E06DFB1BE9BDB7006E99D3 /* LaunchScreen.xib */,
@@ -259,8 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90386CD1BF5CF9C00AE4BD3 /* LoginViewController.swift in Sources */,
+				E90386D71BF5D56D00AE4BD3 /* CreateRoomViewController.swift in Sources */,
 				E9E06DF51BE9BDB7006E99D3 /* ViewController.swift in Sources */,
 				E9E06DF31BE9BDB7006E99D3 /* AppDelegate.swift in Sources */,
+				E90386D51BF5D55500AE4BD3 /* JointRoomViewController.swift in Sources */,
+				E90386D11BF5D19400AE4BD3 /* GameStartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,10 +62,248 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="f41-0Z-yw5" kind="modal" identifier="toGameStartVC" id="ed3-pe-4Sh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2i-eq-hHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="433" y="230"/>
+            <point key="canvasLocation" x="213" y="230"/>
+        </scene>
+        <!--Game Start View Controller-->
+        <scene sceneID="geZ-GS-vva">
+            <objects>
+                <viewController id="f41-0Z-yw5" customClass="GameStartViewController" customModule="TrembleWristband" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F0m-KG-trD"/>
+                        <viewControllerLayoutGuide type="bottom" id="D18-7v-SHK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pYE-0I-MoW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minami1389さん" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amb-Su-pzo">
+                                <rect key="frame" x="20" y="40" width="128" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Qs-gK-0Bg" userLabel="createRoomView">
+                                <rect key="frame" x="0.0" y="121" width="320" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1av-De-MbJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didPushedCreateRoomButton:" destination="f41-0Z-yw5" eventType="touchUpInside" id="OOf-7t-4LE"/>
+                                            <segue destination="5e8-L6-Jfd" kind="modal" identifier="toCreateRoomVC" modalTransitionStyle="crossDissolve" id="OsL-r9-o3s"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="部屋をつくる" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cA-mI-J2H">
+                                        <rect key="frame" x="20" y="20" width="150" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PH5-LW-CYD">
+                                        <rect key="frame" x="20" y="150" width="280" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ルーム名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH2-xT-hVv">
+                                        <rect key="frame" x="20" y="127" width="68" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="bH2-xT-hVv" firstAttribute="leading" secondItem="7cA-mI-J2H" secondAttribute="leading" id="AYv-61-dWi"/>
+                                    <constraint firstAttribute="bottom" secondItem="1av-De-MbJ" secondAttribute="bottom" id="CF7-wI-cJv"/>
+                                    <constraint firstItem="7cA-mI-J2H" firstAttribute="leading" secondItem="1Qs-gK-0Bg" secondAttribute="leading" constant="20" id="CtV-iH-Qrw"/>
+                                    <constraint firstAttribute="trailing" secondItem="PH5-LW-CYD" secondAttribute="trailing" constant="20" id="Fzn-7Y-psi"/>
+                                    <constraint firstAttribute="trailing" secondItem="1av-De-MbJ" secondAttribute="trailing" id="V2Y-5L-5ew"/>
+                                    <constraint firstAttribute="bottom" secondItem="PH5-LW-CYD" secondAttribute="bottom" constant="20" id="c9W-Y2-7Al"/>
+                                    <constraint firstItem="1av-De-MbJ" firstAttribute="leading" secondItem="1Qs-gK-0Bg" secondAttribute="leading" id="emG-kb-sap"/>
+                                    <constraint firstItem="PH5-LW-CYD" firstAttribute="leading" secondItem="7cA-mI-J2H" secondAttribute="leading" id="mdW-rP-LGE"/>
+                                    <constraint firstItem="PH5-LW-CYD" firstAttribute="top" secondItem="bH2-xT-hVv" secondAttribute="bottom" constant="2" id="w3j-y1-5Vf"/>
+                                    <constraint firstAttribute="height" constant="200" id="yuu-8w-fpl"/>
+                                    <constraint firstItem="1av-De-MbJ" firstAttribute="top" secondItem="1Qs-gK-0Bg" secondAttribute="top" id="zk0-u8-ppC"/>
+                                    <constraint firstItem="7cA-mI-J2H" firstAttribute="top" secondItem="1Qs-gK-0Bg" secondAttribute="top" constant="20" id="zzu-ck-L9l"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngH-TI-QUd" userLabel="joinRoomView">
+                                <rect key="frame" x="0.0" y="326" width="320" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPY-7k-W93">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didPushedJoinRoomButton:" destination="f41-0Z-yw5" eventType="touchUpInside" id="21w-cA-ahp"/>
+                                            <segue destination="ev3-bI-2NR" kind="modal" identifier="toJoinRoomVC" modalTransitionStyle="crossDissolve" id="pPg-Qk-31Z"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="参加する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-Gd-2PP">
+                                        <rect key="frame" x="20" y="20" width="100" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.32000000000000001" blue="0.32800000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="zPY-7k-W93" firstAttribute="top" secondItem="ngH-TI-QUd" secondAttribute="top" id="Vkh-Af-Rsg"/>
+                                    <constraint firstItem="RUl-Gd-2PP" firstAttribute="leading" secondItem="ngH-TI-QUd" secondAttribute="leading" constant="20" id="XsO-QC-bne"/>
+                                    <constraint firstItem="zPY-7k-W93" firstAttribute="leading" secondItem="ngH-TI-QUd" secondAttribute="leading" id="Zde-Ea-2tV"/>
+                                    <constraint firstAttribute="bottom" secondItem="zPY-7k-W93" secondAttribute="bottom" id="aZZ-Tr-Vbx"/>
+                                    <constraint firstAttribute="trailing" secondItem="zPY-7k-W93" secondAttribute="trailing" id="gsM-2J-D4E"/>
+                                    <constraint firstItem="RUl-Gd-2PP" firstAttribute="top" secondItem="ngH-TI-QUd" secondAttribute="top" constant="20" id="nkQ-zU-r4t"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="ngH-TI-QUd" firstAttribute="leading" secondItem="1Qs-gK-0Bg" secondAttribute="leading" id="3Hk-8e-kuf"/>
+                            <constraint firstItem="1Qs-gK-0Bg" firstAttribute="leading" secondItem="pYE-0I-MoW" secondAttribute="leading" id="3hE-Be-Omm"/>
+                            <constraint firstItem="ngH-TI-QUd" firstAttribute="centerX" secondItem="pYE-0I-MoW" secondAttribute="centerX" id="FOI-jD-bKf"/>
+                            <constraint firstItem="ngH-TI-QUd" firstAttribute="height" secondItem="1Qs-gK-0Bg" secondAttribute="height" id="I52-QK-uy7"/>
+                            <constraint firstItem="1Qs-gK-0Bg" firstAttribute="top" secondItem="amb-Su-pzo" secondAttribute="bottom" constant="60" id="N3S-LC-OzX"/>
+                            <constraint firstItem="amb-Su-pzo" firstAttribute="top" secondItem="F0m-KG-trD" secondAttribute="bottom" constant="20" id="cwK-EF-gXn"/>
+                            <constraint firstItem="ngH-TI-QUd" firstAttribute="top" secondItem="1Qs-gK-0Bg" secondAttribute="bottom" constant="5" id="jZ8-2y-5xd"/>
+                            <constraint firstItem="ngH-TI-QUd" firstAttribute="trailing" secondItem="1Qs-gK-0Bg" secondAttribute="trailing" id="lHm-KB-KPn"/>
+                            <constraint firstItem="amb-Su-pzo" firstAttribute="leading" secondItem="pYE-0I-MoW" secondAttribute="leading" constant="20" id="xPj-Jv-GTc"/>
+                            <constraint firstAttribute="trailing" secondItem="1Qs-gK-0Bg" secondAttribute="trailing" id="y7V-pX-8bk"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="S1Z-kz-RJa" appends="YES" id="O9l-Zo-MEm"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="FEz-XD-kXB"/>
+                    <connections>
+                        <outlet property="roomNameTextField" destination="PH5-LW-CYD" id="B1h-VG-tZf"/>
+                        <outlet property="userNameLabel" destination="amb-Su-pzo" id="b9l-P2-tyD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gNV-q9-BVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="S1Z-kz-RJa">
+                    <connections>
+                        <action selector="didTapScreen:" destination="f41-0Z-yw5" id="MWy-F1-Kkn"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="587" y="230"/>
+        </scene>
+        <!--Joint Room View Controller-->
+        <scene sceneID="Nix-ux-8JH">
+            <objects>
+                <viewController id="ev3-bI-2NR" customClass="JointRoomViewController" customModule="TrembleWristband" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qBT-yu-aYi"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zwu-Na-Xqo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8LS-j4-a2K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0XP-Mg-OTQ">
+                                <rect key="frame" x="0.0" y="43" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="部屋探し中・・・" id="Qr0-ot-XXc">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bQX-fa-JNT">
+                                            <connections>
+                                                <action selector="didPushedCancelButton:" destination="ev3-bI-2NR" id="e0m-wg-VQF"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0XP-Mg-OTQ" secondAttribute="trailing" id="86x-9i-f84"/>
+                            <constraint firstItem="0XP-Mg-OTQ" firstAttribute="top" secondItem="qBT-yu-aYi" secondAttribute="bottom" id="lMV-Qq-Chc"/>
+                            <constraint firstItem="0XP-Mg-OTQ" firstAttribute="leading" secondItem="8LS-j4-a2K" secondAttribute="leading" id="xu3-DN-Dcr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="oEb-eo-BvW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ma-QR-nnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="587" y="853"/>
+        </scene>
+        <!--Create Room View Controller-->
+        <scene sceneID="ZEF-sg-Ihv">
+            <objects>
+                <viewController id="5e8-L6-Jfd" customClass="CreateRoomViewController" customModule="TrembleWristband" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nn3-xv-BOz"/>
+                        <viewControllerLayoutGuide type="bottom" id="pcg-To-NCL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XLX-Dw-1QU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqr-rV-0ym">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="メンバー募集中・・・" id="svV-aC-dlK">
+                                        <barButtonItem key="backBarButtonItem" title="ああ" id="Rdv-bg-6rt"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="qgy-d3-Tsd">
+                                            <connections>
+                                                <action selector="didPushedCancelButton:" destination="5e8-L6-Jfd" id="jFU-Ez-py3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fqr-rV-0ym" firstAttribute="leading" secondItem="XLX-Dw-1QU" secondAttribute="leading" id="Usd-B2-Cq7"/>
+                            <constraint firstItem="fqr-rV-0ym" firstAttribute="top" secondItem="Nn3-xv-BOz" secondAttribute="bottom" id="hPR-Uk-p5m"/>
+                            <constraint firstAttribute="trailing" secondItem="fqr-rV-0ym" secondAttribute="trailing" id="mAf-oZ-wag"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iNk-qZ-cNP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BhF-P7-i1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="230"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Sru-1q-MQg">
+            <objects>
+                <viewController id="E4D-Ac-cyf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dmh-6m-Mkr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Evg-zB-LFk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7N3-bx-MDJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v8Q-2V-ntl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>
