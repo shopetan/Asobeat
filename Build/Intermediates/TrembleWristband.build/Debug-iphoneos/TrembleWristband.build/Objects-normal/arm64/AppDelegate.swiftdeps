@@ -6,23 +6,23 @@ provides-nominal:
 provides-member:
 - ["C16TrembleWristband11AppDelegate", ""]
 provides-dynamic-lookup:
+- "applicationWillResignActive"
+- "applicationWillTerminate"
+- "applicationDidEnterBackground"
 - "applicationWillEnterForeground"
+- "applicationDidBecomeActive"
 - "application"
 - "window"
-- "applicationWillTerminate"
-- "applicationWillResignActive"
-- "applicationDidEnterBackground"
-- "applicationDidBecomeActive"
 depends-top-level:
-- !private "BooleanLiteralType"
+- "AppDelegate"
 - "UIResponder"
+- "NSObject"
+- "AnyObject"
+- "UIWindow"
+- !private "BooleanLiteralType"
 - "Bool"
 - "UIApplicationDelegate"
-- "AnyObject"
-- "AppDelegate"
-- "NSObject"
 - "UIApplication"
-- "UIWindow"
 depends-member:
 - ["PSs9AnyObject", "application"]
 - ["PSs9AnyObject", "applicationDidBecomeActive"]
