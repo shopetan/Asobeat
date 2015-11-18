@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/edisonHTTPRequestAPI'); // connect to our 
 
 // use Model
 var User       = require('./app/models/user');
+var Room       = require('./app/models/room');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -77,6 +78,22 @@ router.route('/users/:user_id')
             if (err)
                 res.send(err);
             res.json(user);
+        });
+    })
+// update the user with this id (accessed at PUT http://localhost:8080/api/users/:user_id)
+    .put(function(req, res) {
+        
+        // use our bear model to find the user we want
+        User.findById(req.params.user_id, function(err, user) {
+            if (err)
+                res.send(err);
+            user.name = req.body.name;  // update the bears info
+            // save the bear
+            user.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'User updated!' });
+            });            
         });
     });
 
