@@ -54,21 +54,32 @@ Get all the users.
 
 ### POST
 Create user.
-![post](http://i.imgur.com/FwxE0rv.png?1)
 
-#### QueryParam
-##### userID
+# POST /api/users におけるデータのPOST
 
-```
-Example
-POST api/rooms?userID=1+2+3
-
-- >
-* Result
-{message: create rooms!}
+現状，UserSchemaは以下のように定義されている．
 
 ```
+{ _id            : user_id,
+  twitter_id     : twitter_id,
+  longitude      : float_longitude,
+  latitude       : float_latitude,
+  is_abnormality : boolean
+}
+```
 
+このデータをPOSTするためには，
+<img width="1395" alt="2015-11-25 14 29 01" src="https://cloud.githubusercontent.com/assets/5266288/11389340/de017eae-9382-11e5-886a-5fb01667fc43.png">
+
+上記のようにx-www-form-urlencodedに対して
+keyとValueを指定することで，データを投げる事ができる．
+
+同様の処理をターミナル上で実行するためには，以下のように投げる事で実現できる．
+
+```
+# twitter_id:ss_shopetan, longitude:1.0, latitude:2.0, is_abnormality:false
+% curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"twitter_id":"ss_shopetan","longitude":1.0,"latitude":2.0,"is_abnormality":false}'  http://localhost:3000/api/users
+```
 
 # api/users/:user_id
 ## Methods
