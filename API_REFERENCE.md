@@ -55,8 +55,6 @@ Get all the users.
 ### POST
 Create user.
 
-# POST /api/users におけるデータのPOST
-
 現状，UserSchemaは以下のように定義されている．
 
 ```
