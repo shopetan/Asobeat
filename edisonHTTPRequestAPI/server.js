@@ -36,10 +36,75 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:3000/api)
 router.get('/', function(req, res) {
-    res.json({ message: 'Shopee!japan' });
+    res.json({ message: 'Post a test message.' });
 });
 
-// more routes for our API will happen here
+// on routes that end in /rooms
+// ----------------------------------------------------
+router.route('/rooms')
+
+// create a users (accessed at POST http://localhost:3000/api/rooms)
+    .post(function(req, res) {
+        
+        var room = new Room();
+        room.name = req.body.name;
+        
+        room.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Room created!' });
+        });
+    })
+
+// get all the rooms (accessed at GET http://localhost:8080/api/rooms)
+    .get(function(req, res) {
+        Room.find(function(err, users) {
+            if (err)
+                res.send(err);
+            res.json(users);
+        });
+    });
+
+// on routes that end in /rooms/:room_id
+// ----------------------------------------------------
+router.route('/rooms/:room_id')
+
+// get the room with that id (accessed at GET http://localhost:3000/api/rooms/:room_id)
+    .get(function(req, res) {
+        Room.findById(req.params.room_id, function(err, room) {
+            if (err)
+                res.send(err);
+            res.json(room);
+        });
+    })
+// update the room with this id (accessed at PUT http://localhost:3000/api/rooms/:room_id)
+    .put(function(req, res) {
+        
+        // use our room model to find the user we want
+        Room.findById(req.params.room_id, function(err, room) {
+            if (err)
+                res.send(err);
+            room.name = req.body.name;  // update the rooms info
+            // save the room
+            room.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Room updated!' });
+            });            
+        });
+    })
+
+// delete the room with this id (accessed at DELETE http://localhost:3000/api/users/:room_id)
+    .delete(function(req, res) {
+        Room.remove({
+            _id: req.params.room_id
+        }, function(err, room) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
+
 
 // on routes that end in /users
 // ----------------------------------------------------
@@ -49,9 +114,12 @@ router.route('/users')
     .post(function(req, res) {
         
         var user = new User();      // create a new instance of the User model
-        user.name = req.body.name;  // set the users name (comes from the request)
+        user.twitter_id = req.body.twitter_id;
+        user.longitude = req.body.longitude;
+        user.latitude = req.body.latitude;
+        user.is_abnormality = req.body.is_abnormality;
         
-        // save the bear and check for errors
+        // save the room and check for errors
         user.save(function(err) {
             if (err)
                 res.send(err);
@@ -59,7 +127,7 @@ router.route('/users')
         });
     })
 
-// get all the bears (accessed at GET http://localhost:8080/api/bears)
+// get all the rooms (accessed at GET http://localhost:8080/api/users)
     .get(function(req, res) {
         User.find(function(err, users) {
             if (err)
@@ -83,11 +151,11 @@ router.route('/users/:user_id')
 // update the user with this id (accessed at PUT http://localhost:3000/api/users/:user_id)
     .put(function(req, res) {
         
-        // use our bear model to find the user we want
+        // use our room model to find the user we want
         User.findById(req.params.user_id, function(err, user) {
             if (err)
                 res.send(err);
-            user.name = req.body.name;  // update the bears info
+            user.name = req.body.name;  // update the rooms info
             // save the bear
             user.save(function(err) {
                 if (err)
@@ -95,7 +163,7 @@ router.route('/users/:user_id')
                 res.json({ message: 'User updated!' });
             });            
         });
-    })        
+    })
 
 // delete the user with this id (accessed at DELETE http://localhost:3000/api/users/:user_id)
     .delete(function(req, res) {
