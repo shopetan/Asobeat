@@ -50,7 +50,7 @@ Get a single room from host user ID.
 ## Methods
 ### GET
 Get all the users.
-![post](http://i.imgur.com/buP8siA.png?1)
+![get](http://i.imgur.com/UVulJso.png)
 
 ### POST
 Create user.
