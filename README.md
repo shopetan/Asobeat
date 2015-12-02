@@ -1,4 +1,4 @@
-# autumnCOJT
+# Asobeat
 
 新しい"アソビ"が始まる．
 
