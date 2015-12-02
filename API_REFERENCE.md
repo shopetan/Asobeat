@@ -8,13 +8,16 @@
 | /api/rooms/:room_id |      GET     |     Get a single room from room ID.     |
 | /api/rooms/:room_id |      PUT     |     Update a room with new info.        |
 | /api/rooms/:room_id |      DELETE  |     Delete a room.                      |
-| /api/rooms/:user_id |      GET     |     Get a single room from host user ID.|
 | /api/users          |      POST    |     Create user.                        |
 | /api/users          |      GET     |     Get all the users.                  |
 | /api/users/:user_id |      GET     |     Get a single user info.             |
 | /api/users/:user_id |      PUT     |     Update a user with new info.        |
 | /api/users/:user_id |      DELETE  |     Delete a user.                      |
-| /api/users/:room_id |      GET     |     Get users from room ID.             |
+
+|        QueryStrings        |   HTTP Verb  |  Description |
+|:-----------:|:------------:|:------------:|
+| /api/rooms/?getSingleRoomFromUserID=:user_id  |      GET     |     Get a single room from host user ID.|
+| /api/users/?getUsersFromRoomID=:room_id       |      GET     |     Get users from room ID.             |
 
 # api
 ## Methods
@@ -38,12 +41,6 @@ Get a single room from room ID.
 Update a room with new info.
 ### DELETE
 Delete a room.
-
-
-# api/rooms/:user_id
-## Methods
-### GET
-Get a single room from host user ID.
 
 
 # api/users
@@ -94,7 +91,16 @@ Delete a user.
 ![DELETE](http://i.imgur.com/O8x1eb0.png?1)
 
 
-# api/users/:room_id
+#QueryParamater
+
+
+# /api/rooms/?getSingleRoomFromUserID=:user_id
+## Methods
+### GET
+Get a single room from host user ID.
+
+
+# /api/users/?getUsersFromRoomID=:room_id
 ## Methods
 ### GET
 Get users from room ID.
@@ -130,4 +136,3 @@ GET api/users/:room_id
   ]}
   
 ```
-
