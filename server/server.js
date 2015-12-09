@@ -55,7 +55,6 @@ router.route('/rooms')
                 room.users[i].user_id = users[i];
         }
         
-        
         room.save(function(err) {
             if (err)
                 res.send(err);
@@ -66,12 +65,20 @@ router.route('/rooms')
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
     .get(function(req, res) {
         
-        Room.find(function(err, users) {
-            if (err)
-                res.send(err);
-            res.json(users);
-        });
-        
+        if(req.query.getRoomFromHostUserID != null){
+            req.params.host_user = req.query.getRoomFromHostUserID;
+            Room.find(req.params.host_user, function(err, room) {
+                if (err)
+                    res.send(err);
+                res.json(room);
+            });
+        }else{
+            Room.find(function(err, users) {
+                if (err)
+                    res.send(err);
+                res.json(users);
+            });
+        }
     });
 
 // on routes that end in /rooms/:room_id
