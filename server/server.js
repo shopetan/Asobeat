@@ -49,8 +49,8 @@ router.route('/rooms')
         var room = new Room();
         room.host_user = req.body.host_user;
         
-        if(req.query.createSingleRoomFromUserID != null){
-            var users = req.query.createSingleRoomFromUserID.split(" ");
+        if(req.query.userID != null){
+            var users = req.query.userID.split(" ");
             for(var i = 0;i<users.length;i++)
                 room.users[i].user_id = users[i];
         }
