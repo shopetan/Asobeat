@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost/edisonHTTPRequestAPI'); // connect to our 
 // use Model
 var User       = require('./app/models/user');
 var Room       = require('./app/models/room');
+var Tmp        = require('./app/models/tmp');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -48,16 +49,21 @@ router.route('/rooms')
         
         var room = new Room();
         room.host_user = req.body.host_user;
-        
         if(req.query.userID != null){
             var users = req.query.userID.split(" ");
-            for(var i = 0;i<users.length;i++)
-                room.users[i].user_id = users[i];
+            for(var i = 0;i<users.length;i++){
+                var tmp = new Tmp();
+                tmp.user_id = users[i];
+                tmp.save();
+                room.users[i] = tmp;
+            }
+            console.log(room.users);
         }
         
         room.save(function(err) {
             if (err)
                 res.send(err);
+            console.log(room);
             res.json({ message: 'Room created!' });
         });
     })
@@ -73,11 +79,36 @@ router.route('/rooms')
                 res.json(room);
             });
         }else{
-            Room.find(function(err, users) {
+            /*
+            Room.find(function(err, rooms) {
                 if (err)
                     res.send(err);
-                res.json(users);
+                res.json(rooms);
             });
+             */
+            Room.find().populate('users').exec(function(err, rooms){
+                if (err)
+                    res.send(err);
+                res.json(rooms);
+            });
+            /*
+            Room.find()
+                .populate('users').
+                .exec(function(err, usrs) {
+                    if(err) throw new Error(err);
+
+                    // ここでUnitに対してpopulateを行う
+                    var options = {
+                        path: 'users.tmp',
+                        model: Employee
+                    };
+
+                    Unit.populate(employees, options, function(err, employees) {
+                        if(err) throw new Error(err);
+                        consolo.log(employees);
+                    });
+                });
+*/
         }
     });
 
