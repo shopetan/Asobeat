@@ -47,7 +47,14 @@ router.route('/rooms')
     .post(function(req, res) {
         
         var room = new Room();
-        room.name = req.body.name;
+        room.host_user = req.body.host_user;
+        
+        if(req.query.createSingleRoomFromUserID != null){
+            var users = req.query.createSingleRoomFromUserID.split(" ");
+            for(var i = 0;i<users.length;i++)
+                room.users[i].user_id = users[i];
+        }
+        
         
         room.save(function(err) {
             if (err)
@@ -58,11 +65,13 @@ router.route('/rooms')
 
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
     .get(function(req, res) {
+        
         Room.find(function(err, users) {
             if (err)
                 res.send(err);
             res.json(users);
         });
+        
     });
 
 // on routes that end in /rooms/:room_id
