@@ -46,7 +46,6 @@ router.route('/rooms')
 
 // create a users (accessed at POST http://localhost:3000/api/rooms)
     .post(function(req, res) {
-        
         var room = new Room();
         room.host_user = req.body.host_user;
         if(req.query.userID != null){
@@ -57,13 +56,11 @@ router.route('/rooms')
                 tmp.save();
                 room.users[i] = tmp;
             }
-            console.log(room.users);
         }
         
         room.save(function(err) {
             if (err)
                 res.send(err);
-            console.log(room);
             res.json({ message: 'Room created!' });
         });
     })
@@ -73,42 +70,17 @@ router.route('/rooms')
         
         if(req.query.getRoomFromHostUserID != null){
             req.params.host_user = req.query.getRoomFromHostUserID;
-            Room.find(req.params.host_user, function(err, room) {
+            Room.find({"host_user" : req.params.host_user}).populate('users').exec(function(err, room) {
                 if (err)
                     res.send(err);
                 res.json(room);
             });
         }else{
-            /*
-            Room.find(function(err, rooms) {
+            Room.find().populate('users').exec( function(err, rooms) {
                 if (err)
                     res.send(err);
                 res.json(rooms);
             });
-             */
-            Room.find().populate('users').exec(function(err, rooms){
-                if (err)
-                    res.send(err);
-                res.json(rooms);
-            });
-            /*
-            Room.find()
-                .populate('users').
-                .exec(function(err, usrs) {
-                    if(err) throw new Error(err);
-
-                    // ここでUnitに対してpopulateを行う
-                    var options = {
-                        path: 'users.tmp',
-                        model: Employee
-                    };
-
-                    Unit.populate(employees, options, function(err, employees) {
-                        if(err) throw new Error(err);
-                        consolo.log(employees);
-                    });
-                });
-*/
         }
     });
 
@@ -118,7 +90,7 @@ router.route('/rooms/:room_id')
 
 // get the room with that id (accessed at GET http://localhost:3000/api/rooms/:room_id)
     .get(function(req, res) {
-        Room.findById(req.params.room_id, function(err, room) {
+        Room.findOne({"_id" : req.params.room_id}).populate('users').exec( function(err, room) {
             if (err)
                 res.send(err);
             res.json(room);
