@@ -1,13 +1,11 @@
 // app/models/room.js
 
 var mongoose     = require('mongoose');
-var TmpSchema    = require('./tmp');
 var Schema       = mongoose.Schema;
 
 var RoomSchema   = new Schema({
-    users: [TmpSchema],
+    users: [{ type: Schema.Types.ObjectId, ref: 'Tmp' }],
     host_user: String
 });
 
 module.exports = mongoose.model('Room', RoomSchema);
-
