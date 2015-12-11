@@ -1,12 +1,10 @@
-// app/models/user.js
+// app/models/room.js
 
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var RoomSchema   = new Schema({
-    users: {
-        user_id: String
-    },
+    users: [{ type: Schema.Types.ObjectId, ref: 'Tmp' }],
     host_user: String
 });
 
