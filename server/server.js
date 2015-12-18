@@ -195,6 +195,22 @@ router.route('/users/:user_id')
         });
     });
 
+// on routes that end in /tmps/:tmp_id
+// ----------------------------------------------------
+router.route('/tmps/:tmp_id')
+
+// delete the user with this id (accessed at DELETE http://localhost:3000/api/tmps/:tmp_id)
+    .delete(function(req, res) {
+        Tmp.remove({
+            _id: req.params.tmp_id
+        }, function(err, tmp) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
+
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
