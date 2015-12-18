@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost/edisonHTTPRequestAPI'); // connect to our 
 // use Model
 var User       = require('./app/models/user');
 var Room       = require('./app/models/room');
+var Tmp        = require('./app/models/tmp');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -45,9 +46,17 @@ router.route('/rooms')
 
 // create a users (accessed at POST http://localhost:3000/api/rooms)
     .post(function(req, res) {
-        
         var room = new Room();
-        room.name = req.body.name;
+        room.host_user = req.body.host_user;
+        if(req.query.userID != null){
+            var users = req.query.userID.split(" ");
+            for(var i = 0;i<users.length;i++){
+                var tmp = new Tmp();
+                tmp.user_id = users[i];
+                tmp.save();
+                room.users[i] = tmp;
+            }
+        }
         
         room.save(function(err) {
             if (err)
@@ -58,11 +67,21 @@ router.route('/rooms')
 
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
     .get(function(req, res) {
-        Room.find(function(err, users) {
-            if (err)
-                res.send(err);
-            res.json(users);
-        });
+        
+        if(req.query.getRoomFromHostUserID != null){
+            req.params.host_user = req.query.getRoomFromHostUserID;
+            Room.find({"host_user" : req.params.host_user}).populate('users').exec(function(err, room) {
+                if (err)
+                    res.send(err);
+                res.json(room);
+            });
+        }else{
+            Room.find().populate('users').exec( function(err, rooms) {
+                if (err)
+                    res.send(err);
+                res.json(rooms);
+            });
+        }
     });
 
 // on routes that end in /rooms/:room_id
@@ -71,7 +90,7 @@ router.route('/rooms/:room_id')
 
 // get the room with that id (accessed at GET http://localhost:3000/api/rooms/:room_id)
     .get(function(req, res) {
-        Room.findById(req.params.room_id, function(err, room) {
+        Room.findOne({"_id" : req.params.room_id}).populate('users').exec( function(err, room) {
             if (err)
                 res.send(err);
             res.json(room);
@@ -175,6 +194,22 @@ router.route('/users/:user_id')
             res.json({ message: 'Successfully deleted' });
         });
     });
+
+// on routes that end in /tmps/:tmp_id
+// ----------------------------------------------------
+router.route('/tmps/:tmp_id')
+
+// delete the user with this id (accessed at DELETE http://localhost:3000/api/tmps/:tmp_id)
+    .delete(function(req, res) {
+        Tmp.remove({
+            _id: req.params.tmp_id
+        }, function(err, tmp) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

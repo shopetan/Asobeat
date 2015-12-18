@@ -1,4 +1,4 @@
-# autumnCOJT
+# Asobeat
 
 新しい"アソビ"が始まる．
 
@@ -9,9 +9,9 @@
 
 # Tech
 
-Backend: Node.js + Express + Mongoose 
+Backend: Node.js + Express + Mongoose(MongoDB) 
 
-* https://nodejs.org/en/
+* https://nodejs.org
 * http://expressjs.com
 * http://mongoosejs.com
 
@@ -22,9 +22,9 @@ Client: iOS(Swift)
 # Development
 
 ## TODO
-* APIサーバの使用定義(APIreference.md)
-* APIサーバの実装(TODO -> API_DEVELOP.md)
-* iOSのSwift仕様書実装
+* APIサーバの実装(残り20%)
+* iOS実装
+* 基盤の作成
 
 ##Release
 
@@ -37,13 +37,13 @@ Please wait...
 You can check the latest sources with the command:
 
 ```
- git clone https://github.com/shopetan/autumnCOJT.git
+ git clone https://github.com/shopetan/Asobeat.git
  ```
 
 or if you have write privileges:
 
 ```
- git clone git@github.com:shopetan/autumnCOJT.git
+ git clone git@github.com:shopetan/Asobeat.git
  ```
 
 
@@ -55,4 +55,4 @@ or if you have write privileges:
 
 # License
 
-MIT License. © 2015 autumnCOJT developer
+MIT License. © 2015 Asobeat developer
