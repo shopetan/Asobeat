@@ -13,6 +13,7 @@
 | /api/users/:user_id |      GET     |     Get a single user info.             |
 | /api/users/:user_id |      PUT     |     Update a user with new info.        |
 | /api/users/:user_id |      DELETE  |     Delete a user.                      |
+| /api/tmps/:tmp_id   |      DELETE  |     Delete a tmp.(dust)                 |
 
 |        QueryStrings        |   HTTP Verb  |  Description |
 |:-----------:|:------------:|:------------:|
@@ -90,6 +91,17 @@ Update a user with new info.
 Delete a user.
 ![DELETE](http://i.imgur.com/O8x1eb0.png?1)
 
+# api/tmps/:tmp_id
+## Methods
+### GET
+Get a single user info.
+### Description
+Tmp is Dust Record.
+This genarated from api/rooms/:room_id .
+So, we need this Record.
+Usage,
+1. POST   api/rooms/:room_id
+2. DELETE api/tmps/:tmp_id
 
 #QueryParamater
 
