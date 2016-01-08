@@ -137,6 +137,7 @@ router.route('/users')
         user.longitude = req.body.longitude;
         user.latitude = req.body.latitude;
         user.is_abnormality = req.body.is_abnormality;
+        user.room_id = req.body.room_id;
         
         // save the room and check for errors
         user.save(function(err) {
@@ -148,11 +149,21 @@ router.route('/users')
 
 // get all the rooms (accessed at GET http://localhost:8080/api/users)
     .get(function(req, res) {
-        User.find(function(err, users) {
-            if (err)
-                res.send(err);
-            res.json(users);
-        });
+
+        if(req.query.getUsersFromRoomID != null){
+            User.find({room_id: req.query.getUsersFromRoomID},function(err,users){
+                if(err)
+                    res.send(err);
+                res.json(users);
+            });
+            
+        }else{
+            User.find(function(err, users) {
+                if (err)
+                    res.send(err);
+                res.json(users);
+            });
+        }
     });
 
 // on routes that end in /users/:twitter_id
@@ -174,9 +185,12 @@ router.route('/users/:twitter_id')
         User.findOne({twitter_id : req.params.twitter_id}, function(err, user) {
             if (err)
                 res.send(err);
-            user.longitude = req.body.longitude;  // update the rooms info
+            user.twitter_id = req.body.twitter_id;
+            user.longitude = req.body.longitude;
             user.latitude = req.body.latitude;
             user.is_abnormality = req.body.is_abnormality;
+            user.room_id = req.body.room_id;
+            
             // save the bear
             user.save(function(err) {
                 if (err)
