@@ -155,26 +155,28 @@ router.route('/users')
         });
     });
 
-// on routes that end in /users/:user_id
+// on routes that end in /users/:twitter_id
 // ----------------------------------------------------
-router.route('/users/:user_id')
+router.route('/users/:twitter_id')
 
-// get the user with that id (accessed at GET http://localhost:3000/api/users/:user_id)
+// get the user with that id (accessed at GET http://localhost:3000/api/users/:twitter_id)
     .get(function(req, res) {
-        User.findById(req.params.user_id, function(err, user) {
+        User.findOne({twitter_id: req.params.twitter_id}, function(err, user) {
             if (err)
                 res.send(err);
             res.json(user);
         });
     })
-// update the user with this id (accessed at PUT http://localhost:3000/api/users/:user_id)
+// update the user with this id (accessed at PUT http://localhost:3000/api/users/:twitter_id)
     .put(function(req, res) {
         
         // use our room model to find the user we want
-        User.findById(req.params.user_id, function(err, user) {
+        User.findOne({twitter_id : req.params.twitter_id}, function(err, user) {
             if (err)
                 res.send(err);
-            user.name = req.body.name;  // update the rooms info
+            user.longitude = req.body.longitude;  // update the rooms info
+            user.latitude = req.body.latitude;
+            user.is_abnormality = req.body.is_abnormality;
             // save the bear
             user.save(function(err) {
                 if (err)
@@ -184,16 +186,32 @@ router.route('/users/:user_id')
         });
     })
 
-// delete the user with this id (accessed at DELETE http://localhost:3000/api/users/:user_id)
+// delete the user with this id (accessed at DELETE http://localhost:3000/api/users/:twitter_id)
     .delete(function(req, res) {
         User.remove({
-            _id: req.params.user_id
+            twitter_id: req.params.twitter_id
         }, function(err, user) {
             if (err)
                 res.send(err);
             res.json({ message: 'Successfully deleted' });
         });
     });
+
+// on routes that end in /tmps/:tmp_id
+// ----------------------------------------------------
+router.route('/tmps/:tmp_id')
+
+// delete the user with this id (accessed at DELETE http://localhost:3000/api/tmps/:tmp_id)
+    .delete(function(req, res) {
+        Tmp.remove({
+            _id: req.params.tmp_id
+        }, function(err, tmp) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
