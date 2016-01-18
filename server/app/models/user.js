@@ -9,6 +9,6 @@ var UserSchema   = new Schema({
     longitude  : Number,
     latitude   : Number,
     is_abnormality : Boolean
-});
+},{ __v: false});
 
 module.exports = mongoose.model('User', UserSchema);

@@ -49,10 +49,10 @@ router.route('/rooms')
         var room = new Room();
         room.host_user = req.body.host_user;
         if(req.query.userID != null){
-            var users = req.query.userID.split(" ");
+            var users =  req.query.userID.split(" ");
             for(var i = 0;i<users.length;i++){
                 var tmp = new Tmp();
-                tmp.user_id = users[i];
+                tmp.twitter_id = users[i];
                 tmp.save();
                 room.users[i] = tmp;
             }
@@ -65,7 +65,7 @@ router.route('/rooms')
         });
     })
 
-// get all the rooms (accessed at GET http://localhost:8080/api/rooms)
+// get all the rooms (accessed at GET http://localhost:3000/api/rooms)
     .get(function(req, res) {
         
         if(req.query.getRoomFromHostUserID != null){
@@ -100,16 +100,33 @@ router.route('/rooms/:room_id')
     .put(function(req, res) {
         
         // use our room model to find the user we want
-        Room.findById(req.params.room_id, function(err, room) {
+        Room.findById(req.params.room_id).populate('users').exec(function(err, room) {
             if (err)
                 res.send(err);
-            room.name = req.body.name;  // update the rooms info
-            // save the room
-            room.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'Room updated!' });
-            });            
+            room.host_user = req.body.host_user;  // update the rooms info
+            if(req.query.userID != null){
+                
+                for(var i=0;i<room.users.length;i++){
+                    if(room.users[i]['twitter_id'] == req.query.userID){
+                        room.users[i].set('toJSON',{twitter_id:String,
+                                                    longitude:Number,
+                                                    latitude:Number,
+                                                    is_abnormality:Boolean});
+                        
+                        room.users[i].set({'twitter_id' : req.query.userID,
+                                           'latitude' : req.body.latitude,
+                                           'longitude' : req.body.longitude,
+                                           'is_abnormality' : req.body.is_abnormality});
+                    }
+                }
+                console.log(room);
+                //room.markModified('room.users');
+                room.save(function(err) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'Room updated!' });
+                });
+            }
         });
     })
 
