@@ -12,12 +12,20 @@ var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
 var database = new Sequelize('sample','','',{dialect:'sqlite',storage:'./database.db'});
 
-// epiligue
-var epilogue = require('epilogue');
-
 // use Model
-var User       = require('./app/models/user');
-var Room       = require('./app/models/room');
+var User =  database.define('User', {
+    twitter_id: Sequelize.STRING,
+    room_id: Sequelize.STRING,
+    lonitude: Sequelize.INTEGER,
+    latitude: Sequelize.INTEGER,
+    is_abnormality: Sequelize.BOOLEAN
+});
+var Room =  database.define('Room', {
+    host_user: Sequelize.STRING
+});
+
+User.belongsTo(Room);
+Room.hasMany(User);
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -25,18 +33,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;        // set our port
-
-// Initialize epilogue
-epilogue.initialize({
-    app: app,
-    sequelize: database
-});
-
-// Create REST resource
-var userResource = epilogue.resource({
-    model: User,
-    endpoints: ['/users', '/users/:id']
-});
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -60,23 +56,20 @@ router.route('/rooms')
 
 // create a users (accessed at POST http://localhost:3000/api/rooms)
     .post(function(req, res) {
-        var room = new Room();
-        room.host_user = req.body.host_user;
+        var room = Room.build({
+            host_user: req.body.host_user
+        });
         if(req.query.userID != null){
             var users = req.query.userID.split(" ");
             for(var i = 0;i<users.length;i++){
-                var tmp = new Tmp();
-                tmp.user_id = users[i];
-                tmp.save();
-                room.users[i] = tmp;
+                //User.update({room_id: 'test'},{ twitter_id: users[i]});
             }
         }
-        
-        room.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Room created!' });
-        });
+        room.save()
+            .success(function (){
+                // 登録に成功したらコールバック
+                console.log('DB save success');
+            });
     })
 
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
@@ -247,13 +240,5 @@ app.use('/api', router);
 
 // START THE SERVER
 // =============================================================================
-
-// Create database and listen
-database
-    .sync({ force: true })
-    .then(function() {
-        server.listen(function() {
-            app.listen(port);
-            console.log('Magic happens on port ' + port);
-        });
-    });
+app.listen(port);
+console.log('Magic happens on port ' + port);

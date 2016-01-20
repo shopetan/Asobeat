@@ -1,11 +1,10 @@
 // app/models/room.js
 
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var Sequelize = require('sequelize');
+var database = new Sequelize('sample','','',{dialect:'sqlite',storage:'../../database.db'});
 
-var RoomSchema   = new Schema({
-    users: [{ type: Schema.Types.ObjectId, ref: 'Tmp' }],
-    host_user: String
-});
-
-module.exports = mongoose.model('Room', RoomSchema);
+module.exports = function(database, Sequelize) {
+    return database.define('Room', {
+        host_user: Sequelize.STRING
+    });
+};
