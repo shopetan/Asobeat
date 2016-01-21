@@ -2,23 +2,23 @@
 
 |    Route    |   HTTP Verb  |  Description |
 |:-----------:|:------------:|:------------:|
-| /api                |      GET     |     Post a test message.                |
-| /api/rooms          |      POST    |     Create room.                        |
-| /api/rooms          |      GET     |     Get all the rooms.                  |
-| /api/rooms/:room_id |      GET     |     Get a single room from room ID.     |
-| /api/rooms/:room_id |      PUT     |     Update a room with new info.        |
-| /api/rooms/:room_id |      DELETE  |     Delete a room.                      |
-| /api/users          |      POST    |     Create user.                        |
-| /api/users          |      GET     |     Get all the users.                  |
-| /api/users/:user_id |      GET     |     Get a single user info.             |
-| /api/users/:user_id |      PUT     |     Update a user with new info.        |
-| /api/users/:user_id |      DELETE  |     Delete a user.                      |
-| /api/tmps/:tmp_id   |      DELETE  |     Delete a tmp.(dust)                 |
+| /api                   |      GET     |     Post a test message.                |
+| /api/rooms             |      POST    |     Create room.                        |
+| /api/rooms             |      GET     |     Get all the rooms.                  |
+| /api/rooms/:room_id    |      GET     |     Get a single room from room ID.     |
+| /api/rooms/:room_id    |      PUT     |     Update a room with new info.        |
+| /api/rooms/:room_id    |      DELETE  |     Delete a room.                      |
+| /api/users             |      POST    |     Create user.                        |
+| /api/users             |      GET     |     Get all the users.                  |
+| /api/users/:twitter_id |      GET     |     Get a single user info.             |
+| /api/users/:twitter_id |      PUT     |     Update a user with new info.        |
+| /api/users/:twitter_id |      DELETE  |     Delete a user.                      |
+
 
 |        QueryStrings        |   HTTP Verb  |  Description |
 |:-----------:|:------------:|:------------:|
-| /api/rooms/?getSingleRoomFromUserID=:user_id  |      GET     |     Get a single room from host user ID.|
-| /api/users/?getUsersFromRoomID=:room_id       |      GET     |     Get users from room ID.             |
+| /api/rooms?getRoomFromHostUserId=:host_user_id  |      GET     |     Get a single room from host user ID.|
+| /api/users?getUsersFromRoomId=:room_id                 |      GET     |     Get users from room ID.             |
 
 # api
 ## Methods
@@ -111,20 +111,35 @@ Usage,
 ### GET
 Get a single room from host user ID.
 
+```
+Example
+GET api/rooms/?getSingleRoomFromUserID=:user_id
 
-# /api/users/?getUsersFromRoomID=:room_id
+- >
+
+* 表示
+[
+  { _id            : room_id,
+    host_user      : host_user_id
+  }
+]
+  
+```
+
+
+# /api/users?getUsersFromRoomId=:room_id
 ## Methods
 ### GET
 Get users from room ID.
 
 ```
 Example
-GET api/users/:room_id
+GET api/users?getUsersFromRoomId=:room_id
 
 - >
 
 * 表示
-{ join_user : [
+[
   { _id            : user_id,
     twitter_id     : twitter_id,
     longitude      : float_longitude,
@@ -145,6 +160,6 @@ GET api/users/:room_id
     latitude       : float_latitude,
     is_abnormality : boolean
   }
-  ]}
+]
   
 ```

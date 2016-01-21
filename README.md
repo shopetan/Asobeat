@@ -21,14 +21,10 @@ Client: iOS(Swift)
 
 # Development
 
-## TODO
-* APIサーバの実装(残り20%)
-* iOS実装
-* 基盤の作成
 
 ##Release
 
-Please wait...
+2015.2.5 Comming Soon
 
 ## Code
 
