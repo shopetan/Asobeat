@@ -150,8 +150,7 @@ router.route('/rooms/:room_id')
             .catch(function(err) {
                 if(err)
                     res.json(err);
-            });
-        
+            });        
     });
 
 // on routes that end in /users
@@ -221,33 +220,36 @@ router.route('/users/:twitter_id')
     .put(function(req, res) {
         
         // use our room model to find the user we want
-        User.findOne({twitter_id : req.params.twitter_id}, function(err, user) {
-            if (err)
-                res.send(err);
-            user.twitter_id = req.body.twitter_id;
-            user.longitude = req.body.longitude;
-            user.latitude = req.body.latitude;
-            user.is_abnormality = req.body.is_abnormality;
-            user.room_id = req.body.room_id;
-            
-            // save the bear
-            user.save(function(err) {
-                if (err)
-                    res.send(err);
+        User.findOne({where:{twitter_id:req.params.twitter_id}})
+            .then(function(user){
+                user.updateAttributes({
+                    id: req.body.id,
+                    twitter_id: req.body.twitter_id,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                    is_abnormality: req.body.is_abnormality,
+                    room_id:req.body.room_id
+                }).then(function(log){
+                    console.log("user_id: " + log.dataValues.id + " is Updated");
+                });
                 res.json({ message: 'User updated!' });
-            });            
-        });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
     })
 
 // delete the user with this id (accessed at DELETE http://localhost:3000/api/users/:twitter_id)
     .delete(function(req, res) {
-        User.remove({
-            twitter_id: req.params.twitter_id
-        }, function(err, user) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Successfully deleted' });
-        });
+        User.destroy({where:{twitter_id: req.params.twitter_id}})
+            .then(function(){
+                res.json({ message: 'Successfully deleted' });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
     });
 
 // on routes that end in /tmps/:tmp_id
