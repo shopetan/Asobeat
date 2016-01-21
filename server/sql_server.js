@@ -24,8 +24,8 @@ var Room =  database.define('Room', {
     host_user: Sequelize.STRING
 });
 
-User.belongsTo(Room);
-Room.hasMany(User);
+User.belongsTo(Room, {foreignKey: 'room_id'});
+Room.hasMany(User , {foreignKey: 'room_id'});
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -62,17 +62,22 @@ router.route('/rooms')
         if(req.query.userID != null){
             var users = req.query.userID.split(" ");
             for(var i = 0;i<users.length;i++){
-                User.find({ where: {twitter_id: users[i]} }).on('success', function(project) {
-                    if (user) { // if the record exists in the db
-                        project.updateAttributes({
-                            room_id: "test"
-                        }).success(function() {});
-                    }
+                User.findOne({ where: {twitter_id: users[i]} }).then(function(user) {
+                    if(user){
+                        Room.findOne({where:{host_user: req.body.host_user}})
+                            .then(function(room)
+                                  {
+                                      var RoomId = room.dataValues.id;
+                                      user.updateAttributes({
+                                          room_id: RoomId
+                                      }).then(function(log){
+                                          console.log(log.dataValues.twitter_id + " is Updated");
+                                      });
+                                  });                    }
                 });
-                //User.update({room_id: 'test'},{ twitter_id: users[i]});
             }
+            res.json({message:'DB save success'});
         }
-        res.json({message:'DB save success'});
     })
 
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
@@ -238,7 +243,5 @@ app.use('/api', router);
 
 // START THE SERVER AND CREATE DATABASE
 // =============================================================================
-database
-    .sync({ force: true });
 app.listen(port);
 console.log('Magic happens on port ' + port);
