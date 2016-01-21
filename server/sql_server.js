@@ -16,7 +16,7 @@ var database = new Sequelize('sample','','',{dialect:'sqlite',storage:'./databas
 var User =  database.define('User', {
     twitter_id: Sequelize.STRING,
     room_id: Sequelize.STRING,
-    lonitude: Sequelize.INTEGER,
+    longitude: Sequelize.INTEGER,
     latitude: Sequelize.INTEGER,
     is_abnormality: Sequelize.BOOLEAN
 });
@@ -58,18 +58,21 @@ router.route('/rooms')
     .post(function(req, res) {
         var room = Room.build({
             host_user: req.body.host_user
-        });
+        }).save();
         if(req.query.userID != null){
             var users = req.query.userID.split(" ");
             for(var i = 0;i<users.length;i++){
+                User.find({ where: {twitter_id: users[i]} }).on('success', function(project) {
+                    if (user) { // if the record exists in the db
+                        project.updateAttributes({
+                            room_id: "test"
+                        }).success(function() {});
+                    }
+                });
                 //User.update({room_id: 'test'},{ twitter_id: users[i]});
             }
         }
-        room.save()
-            .success(function (){
-                // 登録に成功したらコールバック
-                console.log('DB save success');
-            });
+        res.json({message:'DB save success'});
     })
 
 // get all the rooms (accessed at GET http://localhost:8080/api/rooms)
@@ -139,19 +142,14 @@ router.route('/users')
 // create a users (accessed at POST http://localhost:3000/api/users)
     .post(function(req, res) {
         
-        var user = new User();      // create a new instance of the User model
-        user.twitter_id = req.body.twitter_id;
-        user.longitude = req.body.longitude;
-        user.latitude = req.body.latitude;
-        user.is_abnormality = req.body.is_abnormality;
-        user.room_id = req.body.room_id;
-        
-        // save the room and check for errors
-        user.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'User created!' });
-        });
+        var user = User.build({
+            twitter_id: req.body.twitter_id,
+            room_id: req.body.room_id,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
+            is_abnormality: req.body.is_abnormality
+        }).save();
+        res.json({ message: 'User created!' });
     })
 
 // get all the rooms (accessed at GET http://localhost:8080/api/users)
@@ -238,7 +236,9 @@ router.route('/tmps/:tmp_id')
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-// START THE SERVER
+// START THE SERVER AND CREATE DATABASE
 // =============================================================================
+database
+    .sync({ force: true });
 app.listen(port);
 console.log('Magic happens on port ' + port);
