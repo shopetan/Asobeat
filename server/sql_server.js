@@ -126,15 +126,11 @@ router.route('/rooms/:room_id')
 
 // delete the room with this id (accessed at DELETE http://localhost:3000/api/users/:room_id)
     .delete(function(req, res) {
-        Room.remove({
-            _id: req.params.room_id
-        }, function(err, room) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Successfully deleted' });
-        });
+        Room.destroy({where:{id: req.params.room_id}})
+            .then(function(){
+                res.json({ message: 'Successfully deleted' });
+            });
     });
-
 
 // on routes that end in /users
 // ----------------------------------------------------
