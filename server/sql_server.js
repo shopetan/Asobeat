@@ -10,20 +10,10 @@ var bodyParser = require('body-parser');
 
 // sequelize prpr_man
 var Sequelize = require('sequelize');
-var database = new Sequelize('sample','','',{dialect:'sqlite',storage:'./database.db'});
 
 // use Model
-var User =  database.define('User', {
-    twitter_id: Sequelize.STRING,
-    room_id: Sequelize.STRING,
-    longitude: Sequelize.INTEGER,
-    latitude: Sequelize.INTEGER,
-    is_abnormality: Sequelize.BOOLEAN
-});
-var Room =  database.define('Room', {
-    host_user: Sequelize.STRING
-});
-
+var User       = require('./app/models/user');
+var Room       = require('./app/models/room');
 User.belongsTo(Room, {foreignKey: 'room_id'});
 Room.hasMany(User , {foreignKey: 'room_id'});
 
@@ -252,27 +242,12 @@ router.route('/users/:twitter_id')
             });
     });
 
-// on routes that end in /tmps/:tmp_id
-// ----------------------------------------------------
-router.route('/tmps/:tmp_id')
-
-// delete the user with this id (accessed at DELETE http://localhost:3000/api/tmps/:tmp_id)
-    .delete(function(req, res) {
-        Tmp.remove({
-            _id: req.params.tmp_id
-        }, function(err, tmp) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Successfully deleted' });
-        });
-    });
-
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-// START THE SERVER AND CREATE DATABASE
+// START THE SERVER 
 // =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
