@@ -172,11 +172,10 @@ router.route('/users/:twitter_id')
 
 // get the user with that id (accessed at GET http://localhost:3000/api/users/:twitter_id)
     .get(function(req, res) {
-        User.findOne({twitter_id: req.params.twitter_id}, function(err, user) {
-            if (err)
-                res.send(err);
-            res.json(user);
-        });
+        User.findOne({where:{twitter_id:req.params.twitter_id}})
+            .then(function(user){
+                res.json(user);
+            });
     })
 // update the user with this id (accessed at PUT http://localhost:3000/api/users/:twitter_id)
     .put(function(req, res) {
