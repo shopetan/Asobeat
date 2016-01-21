@@ -85,17 +85,15 @@ router.route('/rooms')
         
         if(req.query.getRoomFromHostUserID != null){
             req.params.host_user = req.query.getRoomFromHostUserID;
-            Room.find({"host_user" : req.params.host_user}).populate('users').exec(function(err, room) {
-                if (err)
-                    res.send(err);
-                res.json(room);
-            });
+            Room.findAll({where:{host_user:req.params.host_user}})
+                .then(function(room){
+                    res.json(room);
+                });
         }else{
-            Room.find().populate('users').exec( function(err, rooms) {
-                if (err)
-                    res.send(err);
-                res.json(rooms);
-            });
+            Room.findAll()
+                .then(function(room){
+                    res.json(room);
+                });
         }
     });
 
