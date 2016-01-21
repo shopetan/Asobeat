@@ -8,14 +8,16 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
-// use MongoDB
-var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/edisonHTTPRequestAPI'); // connect to our database
+// sequelize prpr_man
+var Sequelize = require('sequelize');
+var database = new Sequelize('sample','','',{dialect:'sqlite',storage:'./database.db'});
+
+// epiligue
+var epilogue = require('epilogue');
 
 // use Model
 var User       = require('./app/models/user');
 var Room       = require('./app/models/room');
-var Tmp        = require('./app/models/tmp');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -23,6 +25,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;        // set our port
+
+// Initialize epilogue
+epilogue.initialize({
+    app: app,
+    sequelize: database
+});
+
+// Create REST resource
+var userResource = epilogue.resource({
+    model: User,
+    endpoints: ['/users', '/users/:id']
+});
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -233,5 +247,13 @@ app.use('/api', router);
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+
+// Create database and listen
+database
+    .sync({ force: true })
+    .then(function() {
+        server.listen(function() {
+            app.listen(port);
+            console.log('Magic happens on port ' + port);
+        });
+    });
