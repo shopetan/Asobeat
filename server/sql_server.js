@@ -84,7 +84,7 @@ router.route('/rooms')
     .get(function(req, res) {
         
         if(req.query.getRoomFromHostUserID != null){
-            req.params.host_user = req.query.getRoomFromHostUserID;
+            req.params.host_user = req.query.getRoomFromHostUserId;
             Room.findAll({where:{host_user:req.params.host_user}})
                 .then(function(room){
                     res.json(room);
@@ -151,20 +151,18 @@ router.route('/users')
 
 // get all the rooms (accessed at GET http://localhost:8080/api/users)
     .get(function(req, res) {
-
+        
         if(req.query.getUsersFromRoomID != null){
-            User.find({room_id: req.query.getUsersFromRoomID},function(err,users){
-                if(err)
-                    res.send(err);
-                res.json(users);
-            });
-            
+            req.params.room_id = req.query.getUsersFromRoomId;
+            User.findAll({where:{room_id:req.params.room_id}})
+                .then(function(user){
+                    res.json(user);
+                });
         }else{
-            User.find(function(err, users) {
-                if (err)
-                    res.send(err);
-                res.json(users);
-            });
+            User.findAll()
+                .then(function(user){
+                    res.json(user);
+                });
         }
     });
 
