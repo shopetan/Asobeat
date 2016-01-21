@@ -118,3 +118,5 @@ xcuserdata
 *.moved-aside
 *.xcuserstate
 
+## database
+*.db

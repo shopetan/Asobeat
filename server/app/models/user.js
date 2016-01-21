@@ -1,14 +1,15 @@
-// app/models/user.js
+// app/models/user.js prpr_man
 
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var Sequelize = require('sequelize');
+var database = new Sequelize('asobeat','','',{dialect:'sqlite',storage:'./database.db'});
 
-var UserSchema   = new Schema({
-    twitter_id : { type: String, required: true, unique: true },
-    room_id    : String,
-    longitude  : Number,
-    latitude   : Number,
-    is_abnormality : Boolean
-});
+var User =  database.define('User', {
+    twitter_id: {type:Sequelize.STRING,allowNull: false},
+    room_id: Sequelize.STRING,
+    longitude: Sequelize.INTEGER,
+    latitude: Sequelize.INTEGER,
+    is_abnormality: Sequelize.BOOLEAN
+},{indexes: [{unique: true, fields: ['twitter_id']}]});
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = User;
+

@@ -1,11 +1,10 @@
 // app/models/room.js
 
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var Sequelize = require('sequelize');
+var database = new Sequelize('asobeat','','',{dialect:'sqlite',storage:'./database.db'});
 
-var RoomSchema   = new Schema({
-    users: [{ type: Schema.Types.ObjectId, ref: 'Tmp' }],
-    host_user: String
-});
+var Room =  database.define('Room', {
+    host_user: {type:Sequelize.STRING,allowNull: false}
+},{indexes: [{unique: true, fields: ['host_user']}]});
 
-module.exports = mongoose.model('Room', RoomSchema);
+module.exports = Room;
