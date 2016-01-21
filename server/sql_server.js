@@ -73,7 +73,8 @@ router.route('/rooms')
                                       }).then(function(log){
                                           console.log(log.dataValues.twitter_id + " is Updated");
                                       });
-                                  });                    }
+                                  });
+                    }
                 });
             }
             res.json({message:'DB save success'});
@@ -88,11 +89,19 @@ router.route('/rooms')
             Room.findAll({where:{host_user:req.params.host_user}})
                 .then(function(room){
                     res.json(room);
+                })
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
                 });
         }else{
             Room.findAll()
                 .then(function(room){
                     res.json(room);
+                })            
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
                 });
         }
     });
@@ -106,6 +115,10 @@ router.route('/rooms/:room_id')
         Room.findById(req.params.room_id)
             .then(function(room){
                 res.json(room);
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
             });
     })
 // update the room with this id (accessed at PUT http://localhost:3000/api/rooms/:room_id)
@@ -121,6 +134,10 @@ router.route('/rooms/:room_id')
                     console.log("Room_id: " + log.dataValues.id + " is Updated");
                 });
                 res.json({ message: 'Room updated!' });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
             });
     })
 
@@ -129,7 +146,12 @@ router.route('/rooms/:room_id')
         Room.destroy({where:{id: req.params.room_id}})
             .then(function(){
                 res.json({ message: 'Successfully deleted' });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
             });
+        
     });
 
 // on routes that end in /users
@@ -145,8 +167,14 @@ router.route('/users')
             longitude: req.body.longitude,
             latitude: req.body.latitude,
             is_abnormality: req.body.is_abnormality
-        }).save();
-        res.json({ message: 'User created!' });
+        })
+                .save().then(function(){
+                    res.json({ message: 'User created!' });
+                })
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
+                });
     })
 
 // get all the rooms (accessed at GET http://localhost:8080/api/users)
@@ -157,11 +185,19 @@ router.route('/users')
             User.findAll({where:{room_id:req.params.room_id}})
                 .then(function(user){
                     res.json(user);
+                })
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
                 });
         }else{
             User.findAll()
                 .then(function(user){
                     res.json(user);
+                })
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
                 });
         }
     });
@@ -175,6 +211,10 @@ router.route('/users/:twitter_id')
         User.findOne({where:{twitter_id:req.params.twitter_id}})
             .then(function(user){
                 res.json(user);
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
             });
     })
 // update the user with this id (accessed at PUT http://localhost:3000/api/users/:twitter_id)
