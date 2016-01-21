@@ -103,27 +103,25 @@ router.route('/rooms/:room_id')
 
 // get the room with that id (accessed at GET http://localhost:3000/api/rooms/:room_id)
     .get(function(req, res) {
-        Room.findOne({"_id" : req.params.room_id}).populate('users').exec( function(err, room) {
-            if (err)
-                res.send(err);
-            res.json(room);
-        });
+        Room.findById(req.params.room_id)
+            .then(function(room){
+                res.json(room);
+            });
     })
 // update the room with this id (accessed at PUT http://localhost:3000/api/rooms/:room_id)
     .put(function(req, res) {
         
         // use our room model to find the user we want
-        Room.findById(req.params.room_id, function(err, room) {
-            if (err)
-                res.send(err);
-            room.name = req.body.name;  // update the rooms info
-            // save the room
-            room.save(function(err) {
-                if (err)
-                    res.send(err);
+        Room.findById(req.params.room_id)
+            .then(function(room){
+                room.updateAttributes({
+                    id: req.body.id,
+                    host_user: req.body.host_user
+                }).then(function(log){
+                    console.log("Room_id: " + log.dataValues.id + " is Updated");
+                });
                 res.json({ message: 'Room updated!' });
-            });            
-        });
+            });
     })
 
 // delete the room with this id (accessed at DELETE http://localhost:3000/api/users/:room_id)
