@@ -106,14 +106,14 @@ Usage,
 #QueryParamater
 
 
-# /api/rooms/?getSingleRoomFromUserID=:user_id
+# /api/rooms/?getRoomFromUserId=:twitter_id
 ## Methods
 ### GET
 Get a single room from host user ID.
 
 ```
 Example
-GET api/rooms/?getSingleRoomFromUserID=:user_id
+GET api/rooms/?getRoomFromUserId=:twitter_id
 
 - >
 
