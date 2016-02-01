@@ -1,4 +1,4 @@
-// app/models/user.js prpr_man
+// app/models/user.js
 
 var Sequelize = require('sequelize');
 var database = new Sequelize('asobeat','','',{dialect:'sqlite',storage:'./database.db'});
