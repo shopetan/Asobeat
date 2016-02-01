@@ -1,0 +1,9 @@
+[Unit]
+Description=Asobeat Service
+
+[Service]
+ExecStart=/home/root/asobeat/start.sh
+Restart = always
+
+[Install]
+WantedBy=multi-user.target 
