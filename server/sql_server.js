@@ -14,6 +14,7 @@ var Sequelize = require('sequelize');
 // use Model
 var User       = require('./app/models/user');
 var Room       = require('./app/models/room');
+var Device       = require('./app/models/device');
 User.belongsTo(Room, {foreignKey: 'room_id'});
 Room.hasMany(User , {foreignKey: 'room_id'});
 
@@ -241,6 +242,84 @@ router.route('/users/:twitter_id')
                     res.json(err);
             });
     });
+
+// on routes that end in /device
+// ----------------------------------------------------
+router.route('/devices')
+
+// create a device (accessed at POST http://localhost:3000/api/devices)
+    .post(function(req, res) {
+        
+        var device = Device.build({
+            device_id: req.body.device_id
+        })
+                .save().then(function(){
+                    res.json({ message: 'Device created!' });
+                })
+                .catch(function(err) {
+                    if(err)
+                        res.json(err);
+                });
+    })
+
+// get all the device (accessed at GET http://localhost:8080/api/devices)
+    .get(function(req, res) {        
+        Device.findAll()
+            .then(function(device){
+                res.json(device);
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
+    });
+
+// on routes that end in /devices/:device_id
+// ----------------------------------------------------
+router.route('/devices/:device_id')
+
+// get the device with that id (accessed at GET http://localhost:3000/api/devices/:device_id)
+    .get(function(req, res) {
+        Device.findOne({where:{device_id:req.params.device_id}})
+            .then(function(device){
+                res.json(device);
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
+    })
+// update the device with this id (accessed at PUT http://localhost:3000/api/devices/:device_id)
+    .put(function(req, res) {
+        
+        Device.findOne({where:{device_id:req.params.device_id}})
+            .then(function(device){
+                device.updateAttributes({
+                    id: req.body.id,
+                    device_id: req.body.device_id
+                }).then(function(log){
+                    console.log("device_id: " + log.dataValues.id + " is Updated");
+                });
+                res.json({ message: 'User updated!' });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
+    })
+
+// delete the device with this id (accessed at DELETE http://localhost:3000/api/devices/:device_id)
+    .delete(function(req, res) {
+        Device.destroy({where:{device_id: req.params.device_id}})
+            .then(function(){
+                res.json({ message: 'Successfully deleted' });
+            })
+            .catch(function(err) {
+                if(err)
+                    res.json(err);
+            });
+    });
+
 
 
 // REGISTER OUR ROUTES -------------------------------

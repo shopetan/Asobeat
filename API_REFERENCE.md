@@ -2,17 +2,22 @@
 
 |    Route    |   HTTP Verb  |  Description |
 |:-----------:|:------------:|:------------:|
-| /api                   |      GET     |     Post a test message.                |
-| /api/rooms             |      POST    |     Create room.                        |
-| /api/rooms             |      GET     |     Get all the rooms.                  |
-| /api/rooms/:room_id    |      GET     |     Get a single room from room ID.     |
-| /api/rooms/:room_id    |      PUT     |     Update a room with new info.        |
-| /api/rooms/:room_id    |      DELETE  |     Delete a room.                      |
-| /api/users             |      POST    |     Create user.                        |
-| /api/users             |      GET     |     Get all the users.                  |
-| /api/users/:twitter_id |      GET     |     Get a single user info.             |
-| /api/users/:twitter_id |      PUT     |     Update a user with new info.        |
-| /api/users/:twitter_id |      DELETE  |     Delete a user.                      |
+| /api                    |      GET     |     Post a test message.                |
+| /api/rooms              |      POST    |     Create room.                        |
+| /api/rooms              |      GET     |     Get all the rooms.                  |
+| /api/rooms/:room_id     |      GET     |     Get a single room from room ID.     |
+| /api/rooms/:room_id     |      PUT     |     Update a room with new info.        |
+| /api/rooms/:room_id     |      DELETE  |     Delete a room.                      |
+| /api/users              |      POST    |     Create user.                        |
+| /api/users              |      GET     |     Get all the users.                  |
+| /api/users/:twitter_id  |      GET     |     Get a single user info.             |
+| /api/users/:twitter_id  |      PUT     |     Update a user with new info.        |
+| /api/users/:twitter_id  |      DELETE  |     Delete a user.                      |
+| /api/devices            |      POST    |     Create device.                      |
+| /api/devices            |      GET     |     Get all the devices.                |
+| /api/devices/:device_id |      GET     |     Get a single device info.           |
+| /api/devices/:device_id |      PUT     |     Update a device with new info.        |
+| /api/devices/:device_id |      DELETE  |     Delete a device.                      |
 
 
 |        QueryStrings        |   HTTP Verb  |  Description |
@@ -23,7 +28,7 @@
 # api
 ## Methods
 Post a test message
-![api](http://i.imgur.com/Om2PGoP.png?1)
+![api](http://i.imgur.com/Om2PGoP.png)
 
 # api/rooms
 ## Methods
@@ -32,6 +37,14 @@ Get all the rooms.
 
 ### POST
 Create room.
+
+```
+Room schema
+
+{ _id            : _id,
+  host_user      : host_user(:twitter_id)
+}
+```
 
 
 # api/rooms/:room_id
@@ -58,6 +71,7 @@ Create user.
 ```
 { _id            : user_id,
   twitter_id     : twitter_id,
+  room_id        : room_id,
   longitude      : float_longitude,
   latitude       : float_latitude,
   is_abnormality : boolean
@@ -91,17 +105,32 @@ Update a user with new info.
 Delete a user.
 ![DELETE](http://i.imgur.com/O8x1eb0.png?1)
 
-# api/tmps/:tmp_id
+# api/devices
 ## Methods
 ### GET
-Get a single user info.
-### Description
-Tmp is Dust Record.
-This genarated from api/rooms/:room_id .
-So, we need this Record.
-Usage,
-1. POST   api/rooms/:room_id
-2. DELETE api/tmps/:tmp_id
+Get all the devices.
+
+### POST
+Create device.
+
+```
+Device schema
+
+{ _id            : _id,
+  device_id      : device_id
+}
+```
+
+
+# api/devices/:device_id
+## Methods
+### GET
+Get a single device from device ID.
+### PUT
+Update a device with new info.
+### DELETE
+Delete a device.
+
 
 #QueryParamater
 
